@@ -38,6 +38,7 @@ header{
 
 .cms-logo{
     width:500px;
+    border:2px solid red;
     max-width:100%;
     height:auto;
     object-fit:contain;
