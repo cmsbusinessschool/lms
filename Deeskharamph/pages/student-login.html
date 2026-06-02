@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Login</title>
+
+<link rel="stylesheet" href="../css/style.css">
+
+<style>
+
+body{
+    margin:0;
+    font-family:Poppins,sans-serif;
+    background:linear-gradient(135deg,#0f172a,#2563eb);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.login-card{
+    width:420px;
+    background:#fff;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 20px 40px rgba(0,0,0,.2);
+}
+
+.login-card h2{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #ddd;
+    border-radius:10px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+}
+
+.error{
+    color:red;
+    text-align:center;
+    margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-card">
+
+    <h2>Student Login</h2>
+
+    <input type="email"
+           id="email"
+           placeholder="Enter Email">
+
+    <input type="password"
+           id="password"
+           placeholder="Enter Password">
+
+    <button onclick="loginStudent()">
+        Login
+    </button>
+
+    <div id="msg" class="error"></div>
+
+</div>
+
+<script>
+
+async function loginStudent(){
+
+    const email =
+    document.getElementById("email")
+    .value.trim();
+
+    const password =
+    document.getElementById("password")
+    .value.trim();
+
+    const response =
+    await fetch("../data/students.json");
+
+    const students =
+    await response.json();
+
+    const user =
+    students.find(s =>
+        s.email === email &&
+        s.password === password
+    );
+
+    if(user){
+
+        localStorage.setItem(
+            "studentEmail",
+            email
+        );
+
+        window.location.href =
+        "../dashboard/student.html";
+
+    }
+    else{
+
+        document.getElementById("msg")
+        .innerHTML =
+        "Invalid Email or Password";
+
+    }
+}
+
+</script>
+
+</body>
+</html>
